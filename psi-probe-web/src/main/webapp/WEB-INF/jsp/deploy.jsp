@@ -47,7 +47,7 @@
 				</c:if>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${successFile}">
 			<div id="successMessage">
 				<c:set var="successLink">
@@ -76,6 +76,8 @@
 						<dd><input id="context" type="text" name="context" size="90"/></dd>
 						<dt><span class="cb"><input id="update" type="checkbox" name="update" value="yes"/><label for="update">&#160;
 									<spring:message code="probe.jsp.deployment.s1.update.label"/></label></span></dt>
+						<dt><span class="cb"><input id="backup" type="checkbox" name="backup" value="yes"/><label for="backup">&#160;
+									<spring:message code="probe.jsp.deployment.s1.update.back"/></label></span></dt>
 						<dt><span class="cb"><input id="discard" type="checkbox" name="discard" value="yes"/><label for="discard">&#160;
 									<spring:message code="probe.jsp.deployment.s1.discard.label"/></label></span></dt>
 						<dt><span class="cb"><input id="compile" type="checkbox" name="compile" value="yes"/><label for="compile">&#160;
@@ -104,7 +106,7 @@
 					</dl>
 				</form>
 			</div>
-			
+
 			<div id="deployScenario3" class="deploy">
 				<span class="deployLabel"><spring:message code="probe.jsp.deployment.s3.title"/></span>
 
