@@ -62,6 +62,11 @@
 					</a>
 				</li>
 				<li>
+					<a class="${navTabbackUp}" href="<c:url value='/backup/backup.htm'/>">
+						<spring:message code="probe.jsp.menu.backUp"/>
+					</a>
+				</li>
+				<li>
 					<a class="${navTabDeploy}" href="<c:url value='/adm/deploy.htm'/>">
 						<spring:message code="probe.jsp.menu.deployment"/>
 					</a>
