@@ -34,7 +34,7 @@
         var status = $(idx);
         status.update('<img border="0" src="${pageContext.request.contextPath}<spring:theme code="progressbar_editnplace.gif"/>"/>');
         var data = 'fileName=' + encodeURIComponent(fileName) + '&back=' + back;
-        new Ajax.Updater(status, '/backup/reBackUp.ajax', {
+        new Ajax.Updater(status, '../backup/reBackUp.ajax', {
             method: 'get',
             asynchronous: true,
             parameters: data,
