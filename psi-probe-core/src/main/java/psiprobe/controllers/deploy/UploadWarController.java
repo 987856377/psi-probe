@@ -4986,7 +4986,6 @@ public class UploadWarController extends AbstractTomcatContainerController {
                             UZipFile.generateFile(oldFile, newFile);
                         }
                     }
-                    getContainerWrapper().getTomcatContainer().stop(contextName);
                     if (tmpWar.getName().endsWith(".war")) {
                         contextName = getContainerWrapper().getTomcatContainer().formatContextName(contextName);
 
@@ -4996,13 +4995,6 @@ public class UploadWarController extends AbstractTomcatContainerController {
                          */
                         String visibleContextName = "".equals(contextName) ? "/" : contextName;
                         request.setAttribute("contextName", visibleContextName);
-                        //删除存在的zip war 文件夹
-//                        logger.info("删除文件" + getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".zip");
-//                        FileUtil.DeleteFolder(getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".zip");
-//                        logger.info("删除文件" + getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".war");
-//                        FileUtil.DeleteFolder(getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".war");
-//                        logger.info("删除文件" + getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + "/");
-//                        FileUtil.DeleteFolder(getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + "/");
                         if (update
                                 && getContainerWrapper().getTomcatContainer().findContext(contextName) != null) {
 
@@ -5010,7 +5002,7 @@ public class UploadWarController extends AbstractTomcatContainerController {
                             getContainerWrapper().getTomcatContainer().remove(contextName);
                         }
 
-                        if (true) {
+                        if (getContainerWrapper().getTomcatContainer().findContext(contextName) == null) {
                             // move the .war to tomcat application base dir
                             String destWarFilename =
                                     getContainerWrapper().getTomcatContainer().formatContextFilename(contextName);
@@ -5058,21 +5050,13 @@ public class UploadWarController extends AbstractTomcatContainerController {
                         contextName = getContainerWrapper().getTomcatContainer().formatContextName(contextName);
                         String visibleContextName = "".equals(contextName) ? "/" : contextName;
                         request.setAttribute("contextName", visibleContextName);
-                        //删除存在的zip war 文件夹
-//                        logger.info("删除文件" + getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".zip");
-//                        FileUtil.DeleteFolder(getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".zip");
-//                        logger.info("删除文件" + getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".war");
-//                        FileUtil.DeleteFolder(getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + ".war");
-//                        logger.info("删除文件" + getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + "/");
-//                        FileUtil.DeleteFolder(getContainerWrapper().getTomcatContainer().getAppBase().getPath() + contextName + "/");
                         if (update
                                 && getContainerWrapper().getTomcatContainer().findContext(contextName) != null) {
 
                             logger.debug("updating {}: removing the old copy", contextName);
                             getContainerWrapper().getTomcatContainer().remove(contextName);
                         }
-                        if (true) {
-                            // move the .war to tomcat application base dir
+                        if (getContainerWrapper().getTomcatContainer().findContext(contextName) == null) {
                             String destWarFilename =
                                     getContainerWrapper().getTomcatContainer().formatContextFilename(contextName);
                             //解压到context目录
@@ -5115,7 +5099,6 @@ public class UploadWarController extends AbstractTomcatContainerController {
                     } else {
                         errMsg = getMessageSourceAccessor().getMessage("probe.src.deploy.war.notWar.failure");
                     }
-                    getContainerWrapper().getTomcatContainer().start(contextName);
                 } catch (IOException e) {
                     errMsg = getMessageSourceAccessor().getMessage("probe.src.deploy.war.failure",
                             new Object[]{e.getMessage()});

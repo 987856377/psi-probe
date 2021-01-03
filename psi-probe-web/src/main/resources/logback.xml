@@ -14,28 +14,33 @@
 <!DOCTYPE configuration>
 <configuration scan="true" debug="false">
 
-  <appender name="PSI-PROBE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>${probe.log.path}/probe.log</File>
-    <append>true</append>
-    <encoder>
-      <charset>utf-8</charset>
-      <pattern>%d{HH:mm:ss.SSS} %-5level {%thread} [%logger{40}] %msg%n</pattern>
-    </encoder>
-    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-      <fileNamePattern>${probe.log.path}/archive/probe-%d{yyyyMMdd}-%i.log.gz</fileNamePattern>
-      <maxHistory>10</maxHistory>
-      <cleanHistoryOnStart>true</cleanHistoryOnStart>
-      <maxFileSize>20MB</maxFileSize>
-    </rollingPolicy>
-  </appender>
+    <appender name="PSI-PROBE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${probe.log.path}/probe.log</File>
+        <append>true</append>
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} %-5level {%thread} [%logger{40}] %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${probe.log.path}/archive/probe-%d{yyyyMMdd}-%i.log.gz</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+            <maxFileSize>20MB</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+            <level>DEBUG</level>
+            <level>ERROR</level>
+        </filter>
+    </appender>
 
-  <logger name="org.springframework.web.context.support" level="ERROR"/>
-  <logger name="org.springframework.beans.factory.support" level="ERROR"/>
+    <logger name="org.springframework.web.context.support" level="ERROR"/>
+    <logger name="org.springframework.beans.factory.support" level="ERROR"/>
 
-  <!-- Reduce noise in case user runs with TRACE logging -->
-  <logger name="psiprobe.tools.ApplicationUtils" level="INFO"/>
+    <!-- Reduce noise in case user runs with TRACE logging -->
+    <logger name="psiprobe.tools.ApplicationUtils" level="INFO"/>
 
-  <root level="INFO">
-    <appender-ref ref="PSI-PROBE"/>
-  </root>
+    <root>
+        <appender-ref ref="PSI-PROBE"/>
+    </root>
 </configuration>
