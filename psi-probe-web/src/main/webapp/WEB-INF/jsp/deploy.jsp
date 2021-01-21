@@ -71,9 +71,17 @@
 				<form action="<c:url value='/adm/war.htm'/>" method="post" enctype="multipart/form-data">
 					<dl>
 						<dt><label for="war"><spring:message code="probe.jsp.deployment.s1.file.label"/> <em>*</em></label></dt>
-						<dd><input id="war" type="file" name="war" size="90"/></dd>
+						<dd><input id="war" type="file" name="war" size="90" accept=".war,.zip"/></dd>
 						<dt><label for="context"><spring:message code="probe.jsp.deployment.s2.context.label"/>&#160;</label></dt>
 						<dd><input id="context" type="text" name="context" size="90"/></dd>
+						<dd>
+							<select style="width: 90px" id="warSelect" onchange="editContext()">
+								<option value="/">/</option>
+								<c:forEach var="app" items="${apps}">
+									<option value="${app.value}">${app.label}</option>
+								</c:forEach>
+							</select>
+						</dd>
 						<dt><span class="cb"><input id="update" type="checkbox" name="update" value="yes"/><label for="update">&#160;
 									<spring:message code="probe.jsp.deployment.s1.update.label"/></label></span></dt>
 						<dt><span class="cb"><input id="backup" type="checkbox" name="backup" value="yes"/><label for="backup">&#160;
@@ -138,6 +146,18 @@
 				</form>
 			</div>
 		</div>
+		<script type="text/javascript">
+			function editContext(){
+				console.log(666);
+				var obj = document.getElementById('warSelect');
+
+				var index = obj.selectedIndex;
+
+				var value = obj.options[index].value; // 选中值
+
+				document.getElementById('context').value=value;
+			}
+		</script>
 	</body>
 
 </html>
